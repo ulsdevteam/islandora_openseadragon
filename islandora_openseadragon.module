@@ -103,6 +103,8 @@ function islandora_openseadragon_callback(array $params = array(), AbstractObjec
     preg_match('/object\/([^\/]*)\/datastream/', $params['jp2_url'], $matches);
     $pid = isset($matches[1]) ? $matches[1] : NULL;
   }
+  // Temporary workaround, waiting on port 443 to be opened
+  $params['jp2_url'] = preg_replace('/^https/', 'http', $params['jp2_url']);
   if (isset($params['jp2_url']) && !empty($params['jp2_url'])) {
     return theme('islandora_openseadragon_viewer', array(
       'pid' => $pid,
