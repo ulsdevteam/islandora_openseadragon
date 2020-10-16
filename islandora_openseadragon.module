@@ -132,6 +132,14 @@ function islandora_openseadragon_callback(array $params = array(), AbstractObjec
       'token_header' => $token_header,
     ));
   }
+  // Temporary workaround, waiting on port 443 to be opened
+  $params['jp2_url'] = preg_replace('/^https/', 'http', $params['jp2_url']);
+  if (isset($params['jp2_url']) && !empty($params['jp2_url'])) {
+    return theme('islandora_openseadragon_viewer', array(
+      'pid' => $pid,
+      'tile_sources' => islandora_openseadragon_identifier_tile_source($params['jp2_url']),
+    ));
+  }
 }
 
 /**
